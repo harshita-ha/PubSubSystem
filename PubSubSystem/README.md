@@ -24,3 +24,15 @@ Now that we have agreed on the core functional requirements, I'll draw out the c
 1. PubSubSystemDemo - this is the dmeo class reponsible for demonstrating the pubsub sytem.
 
 Before proceeding, I want to confirm if the core entities look good or do you want me to make any modifications to the system?
+
+
+INTERVIEWER PROBES
+
+Q1 : Let’s say a new requirement comes in:
+A subscriber only wants messages that contain the word ERROR. How would you evolve your design to support that?
+
+SOL : To support this requirement, I would introduce a filtering mechanism in the Subscriber interface. This could be done by adding a method like `shouldReceive(message: Message): boolean` that allows subscribers to define their own filtering logic. The Topic class would then call this method before notifying each subscriber. This way, subscribers can implement their own filtering criteria without changing the core logic of the pub-sub system, adhering to the Open/Closed Principle.
+
+Q2 : High sub count?
+SOL : We shift from sysnchronous to asynchronous message delivery at the topic level to avoid blocking the main thread. We might also consider batching the requests at a per min granularity to start - this granularity can be re-adjusted based on the specific use case of the system.
+

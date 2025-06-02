@@ -15,6 +15,8 @@ namespace PubSubSystem.Core
         {
             var message = new Message(content);
 
+            Console.WriteLine($"[PUBLISHER] Published message: {message.ToString()}.");
+
             foreach (var topic in _topic)
             {
                 topic.Publish(message);

@@ -1,4 +1,5 @@
-﻿using PubSubSystem.Interfaces;
+﻿using PubSubSystem.Core;
+using PubSubSystem.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,16 @@ namespace PubSubSystem.Subscribers
         public void ReceiveMessage(Core.Message message)
         {
             File.WriteAllText(_filePath, message.ToString());
+            Console.WriteLine($"Published message: {message.ToString()} to file.");
+        }
+
+
+        /*
+        * Extension following DIP 
+        */
+        public bool ShouldReceiveMessage(Message message)
+        {
+            return message.Content.Contains("error", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

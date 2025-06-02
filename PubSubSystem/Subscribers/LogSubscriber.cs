@@ -1,4 +1,5 @@
-﻿using PubSubSystem.Interfaces;
+﻿using PubSubSystem.Core;
+using PubSubSystem.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,14 @@ namespace PubSubSystem.Subscribers
         {
             // Log the message to the console
             Console.WriteLine($"LogSubscriber received message: {message.ToString()}");
+        }
+
+        /*
+        * Extension following DIP 
+        */
+        public bool ShouldReceiveMessage(Message message)
+        {
+            return message.Content.Contains("debug", StringComparison.OrdinalIgnoreCase);
         }
     }
 }
